@@ -11,9 +11,9 @@ public interface StudentRepos extends PagingAndSortingRepository<Student, Long>,
         QuerydslPredicateExecutor<Student>, QuerydslBinderCustomizer<QStudent> {
 
     @Override
-    default void customize(QuerydslBindings bindings, QStudent root) {
+    default void customize(QuerydslBindings bindings, QStudent student) {
 
-        bindings.bind(root.major)
-                .all((path, value) -> Optional.of(path.in(value)));
+        bindings.bind(student.major)
+                .all((major, targetMajors) -> Optional.of(major.in(targetMajors)));
     }
 }
